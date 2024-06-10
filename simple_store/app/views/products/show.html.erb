@@ -1,4 +1,7 @@
 <h1><%= @products.title %></h1>
-
-<li>Price: $<%= @products.price %></li>
-<li>In Stock: <%= @products.stock_quantity %></li>
+<div><b>Product Description:</b> <%= @products.description %> </div>
+<ul>
+<li><b>Price:</b> $<%= @products.price %></li>
+<li><b>In Stock:</b> <%= @products.stock_quantity %></li>
+<li><b>Category:</b> <%= @products.category.name%></li>
+<ul>

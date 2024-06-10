@@ -4,6 +4,8 @@
   <% @products.each do |product| %>
     <li>
       <%= link_to product.title, product %>
+      <br> 
+      <small>Category: <%= product.category.name%></small>
     </li>
   <% end %>
 </ul>
