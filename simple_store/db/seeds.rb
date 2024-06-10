@@ -23,17 +23,17 @@ Category.destroy_all
 
 csv_file = Rails.root.join('db/products.csv')
 csv_data = File.read(csv_file)
-products = CSV.parse(csv_data, headers: true)
+products = CSV.parse(csv_data, headers: true, encoding: 'utf-8')
 
 products.each do |product|
   category_name = product['category']
   category = Category.find_or_create_by(name: category_name)
 
   Product.create(
-    title: product['title'],
-    price: product['price'].to_d,
+    title: product['name'],
+    price: product['price'],
     description: product['description'],
-    stock_quantity: product['stock_quantity'].to_i,
+    stock_quantity: product['stock_quantity'],
     category: category
   )
 end
