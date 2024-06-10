@@ -9,10 +9,31 @@
 #   end
 #
 
-676.times do
+# 676.times do
+#   Product.create(
+#     title: "#{Faker::Ancient.primordial} #{Faker::Food.ingredient}",
+#     price: Faker::Commerce.price,
+#     stock_quantity: Faker::Number.between(from: 1, to: 10)
+#   )
+# end
+require "csv"
+
+Product.destroy_all
+Category.destroy_all
+
+csv_file = Rails.root.join('db/products.csv')
+csv_data = File.read(csv_file)
+products = CSV.parse(csv_data, headers: true)
+
+products.each do |product|
+  category_name = product['category']
+  category = Category.find_or_create_by(name: category_name)
+
   Product.create(
-    title: "#{Faker::Ancient.primordial} #{Faker::Food.ingredient}",
-    price: Faker::Commerce.price,
-    stock_quantity: Faker::Number.between(from: 1, to: 10)
+    title: product['title'],
+    price: product['price'].to_d,
+    description: product['description'],
+    stock_quantity: product['stock_quantity'].to_i,
+    category: category
   )
 end
